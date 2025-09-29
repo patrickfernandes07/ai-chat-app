@@ -5,7 +5,6 @@ import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -236,9 +235,9 @@ export default function ChatInterface() {
           </div>
         </CardHeader>
         
-        <CardContent className="flex-1 flex flex-col min-h-0">
-          <ScrollArea className="flex-1 pr-4" ref={scrollAreaRef}>
-            <div className="space-y-4 pb-4">
+        <CardContent className="flex-1 flex flex-col min-h-0 p-0">
+          <div className="flex-1 overflow-y-auto px-6 py-4" ref={scrollAreaRef}>
+            <div className="space-y-4">
               {messages.length === 0 && (
                 <div className="text-center text-muted-foreground py-12">
                   <Bot className="w-12 h-12 mx-auto mb-4 opacity-50" />
@@ -301,11 +300,12 @@ export default function ChatInterface() {
               {/* Elemento invisível para scroll automático */}
               <div ref={messagesEndRef} />
             </div>
-          </ScrollArea>
+          </div>
 
-          <Separator className="my-4 flex-shrink-0" />
+          <div className="px-6 pb-4">
+            <Separator className="mb-4" />
 
-          <div className="flex gap-2 flex-shrink-0">
+          <div className="flex gap-2">
             <Textarea
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
@@ -326,6 +326,7 @@ export default function ChatInterface() {
                 <Send className="w-4 h-4" />
               )}
             </Button>
+          </div>
           </div>
         </CardContent>
       </Card>
