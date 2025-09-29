@@ -6,7 +6,7 @@ export interface GerarCasosTextoRequest {
   descricao: string;
   formato: string;
   idioma: string;
-  nivel_codigo: string;
+  gerar_codigo: string;
 }
 
 export interface TestCase {
@@ -73,6 +73,7 @@ export class AIService {
     request: GerarCasosTextoRequest
   ): Promise<AIResponse> {
     try {
+      console.log(request);
       const response = await aiApiClient.post<AIResponse>(
         "/gerar-casos-texto",
         request
