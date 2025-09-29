@@ -26,11 +26,6 @@ export default function ChatInterface() {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Configurações padrão para a requisição
-  const [formato] = "Procedural";
-  const [idioma] = "pt";
-  const [gerarCodigo] = "Robotframework";
-
   const handleSendMessage = async () => {
     if (!inputValue.trim() || isLoading) return;
 
@@ -47,9 +42,9 @@ export default function ChatInterface() {
     try {
       const request: GerarCasosTextoRequest = {
         descricao: inputValue,
-        formato,
-        idioma,
-        gerar_codigo: gerarCodigo,
+        formato: "Procedural",
+        idioma: "pt",
+        gerar_codigo: "Robotframework",
       };
 
       const response = await AIService.gerarCasosTeste(request);
