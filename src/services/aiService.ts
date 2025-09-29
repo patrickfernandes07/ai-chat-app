@@ -49,6 +49,7 @@ const aiApiClient = axios.create({
 aiApiClient.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.log(error);
     if (error.response?.status === 422) {
       // Erro de validação
       const validationError: ValidationError = error.response.data;
@@ -79,20 +80,11 @@ export class AIService {
 
       return response.data;
     } catch (error) {
+      console.log(error);
       if (axios.isAxiosError(error)) {
         throw new Error(error.message || "Erro ao gerar casos de teste");
       }
       throw error;
-    }
-  }
-
-  // Método para testar conexão com a API
-  static async testConnection(): Promise<boolean> {
-    try {
-      await aiApiClient.get("/health"); // assumindo que existe um endpoint de health
-      return true;
-    } catch {
-      return false;
     }
   }
 }
