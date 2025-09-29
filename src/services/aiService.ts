@@ -40,7 +40,7 @@ const API_BASE_URL =
 const aiApiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "application/x-www-form-urlencoded", // Mudança aqui
   },
   timeout: 30000, // 30 segundos
 });
@@ -74,9 +74,17 @@ export class AIService {
   ): Promise<AIResponse> {
     try {
       console.log(request);
+
+      // Converte o objeto em URLSearchParams para formato form-urlencoded
+      const formData = new URLSearchParams();
+      formData.append("descricao", request.descricao);
+      formData.append("formato", request.formato);
+      formData.append("idioma", request.idioma);
+      formData.append("gerar_codigo", request.gerar_codigo);
+
       const response = await aiApiClient.post<AIResponse>(
         "/gerar-casos-texto",
-        request
+        formData // Envia como formData ao invés do objeto direto
       );
 
       return response.data;
